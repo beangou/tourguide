@@ -1,6 +1,7 @@
 package controller;
 
 import com.tourguide.Application;
+import com.tourguide.dao.UserDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class TestHello {
     @Autowired
     private MockMvc mvc;
 
+    @Autowired
+    private UserDao userDao;
+
     @Test
     public void greeting() {
         try {
@@ -36,6 +40,11 @@ public class TestHello {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void findUser() {
+        System.out.println("result=" + userDao.selectById(1));
     }
 
 }

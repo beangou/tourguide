@@ -12,6 +12,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
+//apply plugin: "com.arenagod.gradle.MybatisGenerator"
 
 jar {
     baseName = 'tourguide'
@@ -28,30 +29,75 @@ targetCompatibility = 1.8
 dependencies {
     // tag::jetty[]
     compile("org.springframework.boot:spring-boot-starter-web")
-//    {
-//        exclude module: "spring-boot-starter-tomcat"
-//    }
-//    compile("org.springframework.boot:spring-boot-starter-jetty")
 
-    // end::jetty[]
     // tag::actuator[]
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("io.springfox:springfox-swagger2:2.6.1")
+    compile("io.springfox:springfox-swagger-ui:2.6.1")
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
+    compile("mysql:mysql-connector-java:5.1.39")
+
+    compile('com.alibaba:druid:1.0.11')
+    compile("org.springframework.boot:spring-boot-starter-jdbc:1.4.0.RELEASE")
+    compile('tk.mybatis:mapper-spring-boot-starter:1.1.1')
+    compile('org.apache.commons:commons-lang3:3.4')
 
     // end::actuator[]
     testCompile("junit:junit")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 
+
+
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+
 
 }
 
-task hello {
 
-    group 'welcome'
-    description 'produce a greeting'
+configurations {
+    mybatisGenerator
+}
 
-    doLast {
-        println "Hello, world"
+repositories {
+    mavenCentral()
+}
+dependencies {
+    mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.3.2'
+    mybatisGenerator 'mysql:mysql-connector-java:5.1.39'
+    mybatisGenerator 'tk.mybatis:mapper:3.3.2'
+}
+
+
+def getDbProperties = {
+    def properties = new Properties()
+    file("src/main/resources/application.properties").withInputStream { inputStream ->
+        properties.load(inputStream)
+    }
+    properties;
+}
+task mybatisGenerate << {
+    def properties = getDbProperties()
+    ant.properties['targetProject'] = projectDir.path
+    ant.properties['driverClass'] = properties.getProperty("spring.datasource.driver-class-name")
+    ant.properties['connectionURL'] = properties.getProperty("spring.datasource.url")
+    ant.properties['userId'] = properties.getProperty("spring.datasource.username")
+    ant.properties['password'] = properties.getProperty("spring.datasource.password")
+    ant.properties['src_main_java'] = sourceSets.main.java.srcDirs[0].path
+    ant.properties['src_main_resources'] = sourceSets.main.resources.srcDirs[0].path
+    ant.taskdef(
+            name: 'mbgenerator',
+            classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+            classpath: configurations.mybatisGenerator.asPath
+    )
+    ant.mbgenerator(overwrite: true,
+            configfile: 'src/test/resources/mybatis-generator/generatorConfig.xml', verbose: true) {
+        propertyset {
+            propertyref(name: 'userId')
+            propertyref(name: 'driverClass')
+            propertyref(name: 'connectionURL')
+            propertyref(name: 'password')
+        }
     }
 }

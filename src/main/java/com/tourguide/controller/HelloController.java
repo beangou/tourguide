@@ -1,7 +1,11 @@
 package com.tourguide.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -10,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @EnableAutoConfiguration
+@Api(value="helloController", description="Operations pertaining to products in Online Store")
 public class HelloController {
 
-    @RequestMapping(value = "/")
-    public String index() {
+    @ApiOperation(value = "View a list of available products", response = String.class)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(int id) {
         return "greeting from springboot.";
     }
 

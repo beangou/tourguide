@@ -1,5 +1,6 @@
 package com.tourguide;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,6 +10,9 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.Arrays;
 
@@ -16,9 +20,14 @@ import java.util.Arrays;
  * Created by liutongbin on 2017/3/25.
  */
 
+//@SpringBootApplication
+////@EnableAutoConfiguration
+////@ComponentScan(basePackages = "com.tourguide")
+
+@Controller
+@EnableWebMvc
 @SpringBootApplication
-//@EnableAutoConfiguration
-//@ComponentScan(basePackages = "com.tourguide")
+@MapperScan(basePackages = "com.tourguide.mapper")
 public class Application extends SpringBootServletInitializer {
 
     @Override
