@@ -1,16 +1,13 @@
 package controller;
 
-import com.tourguide.Application;
 import com.tourguide.dao.UserDao;
+import com.tourguide.entity.User;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import service.BaseTest;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -20,17 +17,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by liutongbin on 2017/3/25.
  */
-
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
-@AutoConfigureMockMvc
-public class TestHello {
+public class TestHello extends BaseTest {
 
     @Autowired
     private MockMvc mvc;
 
     @Autowired
     private UserDao userDao;
+
+    @Test
+    public void insert() {
+        User user = new User();
+        user.setMobile("18755552222");
+//        user.set
+//        System.out.println(userDao.create());
+    }
+
+    @Test
+    public void findUser() {
+        System.out.println("result=" + userDao.selectById(1));
+    }
+
+    @Test
+    public void selectOne() {
+        System.out.println("tt=result=" + userDao.findByMobile("15955552919"));
+    }
+
+    @Test
+    public void update() {
+        User user = userDao.findByMobile("15955552919");
+        user.setMobile("15844443333");
+        System.out.println("user=" + user);
+        System.out.println("update result=" + userDao.update(user));
+    }
 
     @Test
     public void greeting() {
@@ -40,11 +59,6 @@ public class TestHello {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void findUser() {
-        System.out.println("result=" + userDao.selectById(1));
     }
 
 }

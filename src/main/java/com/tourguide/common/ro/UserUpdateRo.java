@@ -1,24 +1,23 @@
-package com.tourguide.entity;
+package com.tourguide.common.ro;
 
+import com.tourguide.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
+/**
+ * Created by liutongbin on 2017/4/5.
+ */
 @Getter
 @Setter
-public class User extends BaseEntity {
+public class UserUpdateRo extends BaseEntity {
+
     private String id;
 
     private String mobile;
 
     private String password;
-
-    private Date createAt;
-
-    private Date updateaAt;
-
-    private Date deleteAt;
 
     private String avatar;
 
@@ -30,5 +29,4 @@ public class User extends BaseEntity {
 
     private String email;
 
-    private String salt;
 }

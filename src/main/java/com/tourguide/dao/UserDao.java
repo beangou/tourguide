@@ -1,12 +1,16 @@
 package com.tourguide.dao;
 
+import com.tourguide.common.TourguideException;
 import com.tourguide.entity.User;
 import com.tourguide.mapper.UserMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
 
 /**
  * Created by liutongbin on 2017/4/3.
@@ -17,23 +21,33 @@ public class UserDao {
     @Autowired
     private UserMapper userMapper;
 
-//    private final SqlSession sqlSession;
-//
-//    public UserDao(SqlSession sqlSession) {
-//        this.sqlSession = sqlSession;
-//    }
+    public int create(User user) {
+        if (user == null) {
+            throw new TourguideException("user为null");
+        }
+        Date now = new Date();
+        user.setCreateAt(now);
+        user.setUpdateaAt(now);
+        return userMapper.insertSelective(user);
+    }
+
+    public User findByMobile(String mobile) {
+        if (StringUtils.isEmpty(mobile)) {
+            throw new TourguideException("mobile不能为空");
+        }
+        User user = new User();
+        user.setMobile(mobile);
+        return userMapper.selectOne(user);
+    }
 
     public User selectById(int id) {
-        return this.userMapper.selectByPrimaryKey(id);
-//        return this.sqlSession.selectOne("selectByPrimaryKey", id);
+        return userMapper.selectByPrimaryKey(id);
     }
 
-    public int update() {
-        return userMapper.updateByPrimaryKeySelective(new User());
+    public int update(User user) {
+        user.setUpdateaAt(new Date());
+        return userMapper.updateByPrimaryKey(user);
+//        return userMapper.updateByPrimaryKeySelective(user);
     }
-
-//    public User findById(int id) {
-//        return userMapper.selectByPrimaryKey(id);
-//    }
 
 }
