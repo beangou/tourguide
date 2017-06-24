@@ -42,6 +42,7 @@ public class HelloController {
             }
         }
 
+        System.out.println("requestedSessionId=" + request.getRequestedSessionId());
         if (StringUtils.isBlank(sessionId)) {
             // 如果不存在，则服务端生成sessionId
             Cookie cookie = new Cookie("sessionId", UUID.randomUUID().toString());

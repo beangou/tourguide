@@ -40,14 +40,13 @@ public class UserDao {
         return userMapper.selectOne(user);
     }
 
-    public User selectById(int id) {
+    public User selectById(String id) {
         return userMapper.selectByPrimaryKey(id);
     }
 
     public int update(User user) {
         user.setUpdateaAt(new Date());
-        return userMapper.updateByPrimaryKey(user);
-//        return userMapper.updateByPrimaryKeySelective(user);
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 
 }

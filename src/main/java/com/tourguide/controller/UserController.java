@@ -23,9 +23,6 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public Result<Boolean> create(@RequestBody UserCreateRo userCreateRo) {
-        if (userCreateRo == null) {
-            return Result.paramError("userCreateRo为null");
-        }
         if (StringUtils.isEmpty(userCreateRo.getMobile())) {
             return Result.paramError("mobile不能为空");
         }
@@ -50,9 +47,6 @@ public class UserController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public Result<Boolean> update(@RequestBody UserUpdateRo userUpdateRo) {
-        if (userUpdateRo == null) {
-            return Result.paramError("userUpdateRo不能为空");
-        }
         if (StringUtils.isEmpty(userUpdateRo.getId())) {
             return Result.paramError("userId不能为空");
         }

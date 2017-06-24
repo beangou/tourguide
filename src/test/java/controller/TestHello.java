@@ -35,7 +35,7 @@ public class TestHello extends BaseTest {
 
     @Test
     public void findUser() {
-        System.out.println("result=" + userDao.selectById(1));
+        System.out.println("result=" + userDao.selectById("1"));
     }
 
     @Test

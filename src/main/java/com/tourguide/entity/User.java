@@ -3,11 +3,15 @@ package com.tourguide.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Id;
 import java.util.Date;
 
 @Getter
 @Setter
 public class User extends BaseEntity {
+
+    // @Id注解必须要有，否则更新会失败
+    @Id
     private String id;
 
     private String mobile;
