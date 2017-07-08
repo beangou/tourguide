@@ -5,3 +5,6 @@ build
 classes/
 .idea/*
 build/*
+.DS_Store
+gradle/.DS_Store
+
