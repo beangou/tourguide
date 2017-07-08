@@ -13,8 +13,6 @@ import java.util.Date;
 @Setter
 public class UserUpdateRo extends BaseEntity {
 
-    private String id;
-
     private String mobile;
 
     private String password;

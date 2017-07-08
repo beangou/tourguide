@@ -1,14 +1,12 @@
 package com.tourguide.dao;
 
 import com.tourguide.common.TourguideException;
+import com.tourguide.common.vo.UserDetailVo;
 import com.tourguide.entity.User;
 import com.tourguide.mapper.UserMapper;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
@@ -26,8 +24,8 @@ public class UserDao {
             throw new TourguideException("user为null");
         }
         Date now = new Date();
-        user.setCreateAt(now);
-        user.setUpdateaAt(now);
+        user.setCreated(now);
+        user.setUpdated(now);
         return userMapper.insertSelective(user);
     }
 
@@ -45,8 +43,11 @@ public class UserDao {
     }
 
     public int update(User user) {
-        user.setUpdateaAt(new Date());
+        user.setUpdated(new Date());
         return userMapper.updateByPrimaryKeySelective(user);
     }
 
+    public User findById(String id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
 }

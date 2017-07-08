@@ -17,6 +17,11 @@ public class Result<T> extends BaseEntity {
         this.data = data;
     }
 
+    public Result(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
     public Result(ResultCodeEnum resultCodeEnum, T data) {
         this.code = resultCodeEnum.getCode();
         this.message = resultCodeEnum.getMessage();
@@ -61,6 +66,10 @@ public class Result<T> extends BaseEntity {
 
     public static <T> Result<T> paramError(String message) {
         return new Result(ResultCodeEnum.PARAM_ERROR.getCode(), message, null);
+    }
+
+    public static <T> Result<T> failure(String message) {
+        return new Result(ResultCodeEnum.EXCEPTION, message);
     }
 
 }

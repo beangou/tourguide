@@ -31,6 +31,8 @@ targetCompatibility = 1.8
 dependencies {
     // tag::jetty[]
     compile("org.springframework.boot:spring-boot-starter-web")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '1.5.4.RELEASE'
 
     // tag::actuator[]
     compile("org.springframework.boot:spring-boot-starter-actuator")
@@ -43,6 +45,13 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jdbc:1.4.0.RELEASE")
     compile('tk.mybatis:mapper-spring-boot-starter:1.1.1')
     compile('org.apache.commons:commons-lang3:3.4')
+//    compile('org.codehaus.jackson:jackson-core-asl:1.9.13')
+//    compile('com.fasterxml.jackson.core:jackson-core:1.9.13')
+    // https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+
+
+
     compile "org.projectlombok:lombok:1.16.16"
 
 //    compile 'org.springframework.security:spring-security-web:4.2.2.RELEASE'
@@ -52,7 +61,7 @@ dependencies {
     // end::actuator[]
     testCompile("junit:junit")
     testCompile("org.springframework.boot:spring-boot-starter-test")
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
 }
 

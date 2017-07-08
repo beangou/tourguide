@@ -1,22 +1,21 @@
-package com.tourguide.entity;
+package com.tourguide.common.vo;
 
+import com.tourguide.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Id;
 import java.util.Date;
 
+/**
+ * Created by liutongbin on 2017/7/8.
+ */
 @Getter
 @Setter
-public class User extends BaseEntity {
+public class UserDetailVo extends BaseEntity {
 
-    // @Id注解必须要有，否则更新会失败
-    @Id
     private String id;
 
     private String mobile; // 手机号
-
-    private String password; // 密码
 
     private Date created; // 创建时间
 
@@ -34,5 +33,4 @@ public class User extends BaseEntity {
 
     private String email; // 邮箱
 
-    private String salt; // 密码加密盐
 }

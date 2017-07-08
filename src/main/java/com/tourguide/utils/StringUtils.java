@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * Created by liutongbin on 2017/4/5.
  */
-public class StringUtils {
+public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     /**
      * 获取6位随机数
