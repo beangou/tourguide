@@ -19,7 +19,7 @@ public class UserDao {
     @Autowired
     private UserMapper userMapper;
 
-    public int create(User user) {
+    public int insert(User user) {
         if (user == null) {
             throw new TourguideException("user为null");
         }

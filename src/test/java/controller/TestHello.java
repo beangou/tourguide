@@ -30,7 +30,7 @@ public class TestHello extends BaseTest {
         User user = new User();
         user.setMobile("18755552222");
 //        user.set
-//        System.out.println(userDao.create());
+//        System.out.println(userDao.insert());
     }
 
     @Test

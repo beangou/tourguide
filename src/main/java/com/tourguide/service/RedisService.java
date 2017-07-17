@@ -19,12 +19,12 @@ public class RedisService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    public void saveUserSession(String userSessionId, UserVo userVo) {
+    public void saveUserSession(String userSessionId, Object obj) {
         if (StringUtils.isBlank(userSessionId)) {
             throw new TourguideException("userSessionId不能为空");
         }
         // 登录用户不需要限制登录时长，除非客户端清掉cookie
-        stringRedisTemplate.opsForValue().set(USER_SESSION_PREFIX + userSessionId, JsonUtil.toJsonString(userVo));
+        stringRedisTemplate.opsForValue().set(USER_SESSION_PREFIX + userSessionId, JsonUtil.toJsonString(obj));
     }
 
     public UserVo getUserSession(String userSessionId) {

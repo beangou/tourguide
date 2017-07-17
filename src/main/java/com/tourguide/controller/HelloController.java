@@ -26,30 +26,30 @@ public class HelloController {
 
     private int num;
 
-    @ApiOperation(value = "View a list of available products", response = String.class)
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public int index(HttpServletRequest request, HttpServletResponse response) {
-        num++;
-        System.out.println("num=" + num);
-        String sessionId = null;
-        System.out.println("cookies=" + request.getCookies());
-        if (request.getCookies() != null && request.getCookies().length > 0) {
-            for (Cookie cookie : request.getCookies()) {
-                if ("sessionId".equals(cookie.getName())) {
-                    sessionId = cookie.getValue();
-                    break;
-                }
-            }
-        }
-
-        System.out.println("requestedSessionId=" + request.getRequestedSessionId());
-        if (StringUtils.isBlank(sessionId)) {
-            // 如果不存在，则服务端生成sessionId
-            Cookie cookie = new Cookie("sessionId", UUID.randomUUID().toString());
-            response.addCookie(cookie);
-        }
-        return num;
-    }
+//    @ApiOperation(value = "View a list of available products", response = String.class)
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public int index(HttpServletRequest request, HttpServletResponse response) {
+//        num++;
+//        System.out.println("num=" + num);
+//        String sessionId = null;
+//        System.out.println("cookies=" + request.getCookies());
+//        if (request.getCookies() != null && request.getCookies().length > 0) {
+//            for (Cookie cookie : request.getCookies()) {
+//                if ("sessionId".equals(cookie.getName())) {
+//                    sessionId = cookie.getValue();
+//                    break;
+//                }
+//            }
+//        }
+//
+//        System.out.println("requestedSessionId=" + request.getRequestedSessionId());
+//        if (StringUtils.isBlank(sessionId)) {
+//            // 如果不存在，则服务端生成sessionId
+//            Cookie cookie = new Cookie("sessionId", UUID.randomUUID().toString());
+//            response.addCookie(cookie);
+//        }
+//        return num;
+//    }
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello() {

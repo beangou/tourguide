@@ -31,7 +31,7 @@ public class UserService {
         user.setMobile(ro.getMobile());
         user.setPassword(MD5.getMD5Code(ro.getPassword() + salt));
         user.setSalt(salt);
-        return userDao.create(user) == 1;
+        return userDao.insert(user) == 1;
     }
 
     public UserVo login(LoginRo loginRo) {

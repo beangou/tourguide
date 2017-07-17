@@ -1,4 +1,4 @@
-package com.tourguide.common;
+package com.tourguide.common.enums;
 
 import lombok.Getter;
 import lombok.Setter;

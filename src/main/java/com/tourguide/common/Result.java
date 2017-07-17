@@ -1,5 +1,6 @@
 package com.tourguide.common;
 
+import com.tourguide.common.enums.ResultCodeEnum;
 import com.tourguide.entity.BaseEntity;
 
 /**

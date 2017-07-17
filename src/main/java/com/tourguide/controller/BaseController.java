@@ -27,6 +27,18 @@ public class BaseController {
     protected RedisService redisService;
 
     /**
+     * 获取当前登录用户
+     * @return
+     */
+    protected UserVo getUserVo(HttpServletRequest request) {
+        String userSessionId = getUserSessionId(request);
+        if (StringUtils.isBlank(userSessionId)) {
+            throw new TourguideException("请重新登录");
+        }
+        return redisService.getUserSession(userSessionId);
+    }
+
+    /**
      * 获取当前登录用户id
      * @return
      */
@@ -55,16 +67,16 @@ public class BaseController {
      * 保存用户信息到redis
      * @param request
      * @param response
-     * @param userVo
+     * @param object
      */
-    protected void saveUserSession(HttpServletRequest request, HttpServletResponse response, UserVo userVo) {
+    protected void saveUserSession(HttpServletRequest request, HttpServletResponse response, Object object) {
         String userSessionId = getUserSessionId(request);
         if (StringUtils.isBlank(userSessionId)) {
             userSessionId = StringUtils.getUUID();
             Cookie cookie = new Cookie(USER_SESSION_ID, userSessionId);
             response.addCookie(cookie);
         }
-        redisService.saveUserSession(userSessionId, userVo);
+        redisService.saveUserSession(userSessionId, object);
     }
 
 }
