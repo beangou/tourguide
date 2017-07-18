@@ -2,6 +2,8 @@ package com.tourguide.service;
 
 import com.tourguide.common.ro.PageParamsRo;
 import com.tourguide.common.ro.backend.SceneryAddRo;
+import com.tourguide.common.ro.backend.SceneryDeleteRo;
+import com.tourguide.common.ro.backend.SceneryUpdateRo;
 import com.tourguide.dao.SceneryDao;
 import com.tourguide.entity.Scenery;
 import com.tourguide.utils.StringUtils;
@@ -41,5 +43,17 @@ public class SceneryService {
         scenery.setCreated(now);
         scenery.setUpdated(now);
         return sceneryDao.insert(scenery) == 1;
+    }
+
+    public Boolean delete(SceneryDeleteRo sceneryDeleteRo) {
+        Scenery scenery = sceneryDao.findById(sceneryDeleteRo.getId());
+        scenery.setDeleted(new Date());
+        return sceneryDao.update(scenery) == 1;
+    }
+
+    public Boolean update(SceneryUpdateRo sceneryUpdateRo) {
+        Scenery scenery = new Scenery();
+        BeanUtils.copyProperties(sceneryUpdateRo, scenery);
+        return sceneryDao.update(scenery) == 1;
     }
 }

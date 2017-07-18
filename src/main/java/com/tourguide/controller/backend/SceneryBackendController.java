@@ -3,7 +3,9 @@ package com.tourguide.controller.backend;
 import com.tourguide.common.Result;
 import com.tourguide.common.ro.PageParamsRo;
 import com.tourguide.common.ro.backend.SceneryAddRo;
+import com.tourguide.common.ro.backend.SceneryDeleteRo;
 import com.tourguide.common.ro.backend.SceneryDetailRo;
+import com.tourguide.common.ro.backend.SceneryUpdateRo;
 import com.tourguide.controller.BaseController;
 import com.tourguide.entity.Scenery;
 import com.tourguide.service.SceneryService;
@@ -38,6 +40,16 @@ public class SceneryBackendController extends BaseController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result<Boolean> add(@RequestBody SceneryAddRo sceneryAddRo) {
         return Result.success(sceneryService.add(sceneryAddRo));
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public Result<Boolean> update(@RequestBody SceneryUpdateRo sceneryUpdateRo) {
+        return Result.success(sceneryService.update(sceneryUpdateRo));
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public Result<Boolean> delete(@RequestBody SceneryDeleteRo sceneryDeleteRo) {
+        return Result.success(sceneryService.delete(sceneryDeleteRo));
     }
 
 }
