@@ -2,10 +2,8 @@ package com.tourguide.controller.backend;
 
 import com.tourguide.common.Result;
 import com.tourguide.common.ro.backend.DictionaryListRo;
-import com.tourguide.common.ro.backend.SceneryListRo;
 import com.tourguide.controller.BaseController;
 import com.tourguide.entity.Dictionary;
-import com.tourguide.entity.Scenery;
 import com.tourguide.service.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

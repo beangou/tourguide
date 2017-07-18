@@ -25,4 +25,10 @@ public class DictionaryDao {
         return dictionaryMapper.selectByExampleAndRowBounds(example, rowBounds);
     }
 
+    public int count(int type) {
+        Example example = new Example(Dictionary.class);
+        example.createCriteria().andEqualTo("type", type).andIsNull("deleted");;
+        return dictionaryMapper.selectCountByExample(example);
+    }
+
 }

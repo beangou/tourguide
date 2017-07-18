@@ -1,7 +1,14 @@
 package com.tourguide.controller;
 
+import com.tourguide.common.Page;
+import com.tourguide.common.Result;
+import com.tourguide.common.ro.backend.DictionaryListRo;
 import com.tourguide.entity.Dictionary;
+import com.tourguide.service.DictionaryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -13,8 +20,12 @@ import java.util.List;
 @RequestMapping("/dictionary")
 public class DictionaryController extends BaseController {
 
-    public List<Dictionary> list() {
-        return null;
+    @Autowired
+    private DictionaryService dictionaryService;
+
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public Result<List<Dictionary>> list(@RequestBody DictionaryListRo dictionaryListRo) {
+        return Result.success(dictionaryService.findByType(dictionaryListRo));
     }
 
 }

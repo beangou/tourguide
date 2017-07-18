@@ -2,7 +2,6 @@ package com.tourguide.service;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.tourguide.common.enums.DictionaryTypeEnum;
-import com.tourguide.common.ro.backend.SceneryListRo;
 import com.tourguide.entity.Dictionary;
 import com.tourguide.mapper.DictionaryMapper;
 import org.junit.Test;

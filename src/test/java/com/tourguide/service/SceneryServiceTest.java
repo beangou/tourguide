@@ -1,6 +1,7 @@
 package com.tourguide.service;
 
 import com.tourguide.common.ro.PageParamsRo;
+import com.tourguide.common.ro.scenery.SceneryListRo;
 import com.tourguide.entity.Scenery;
 import com.tourguide.utils.StringUtils;
 import org.junit.Test;
@@ -31,10 +32,10 @@ public class SceneryServiceTest extends BaseTest {
 
     @Test
     public void find() {
-        PageParamsRo pageParamsRo = new PageParamsRo();
-        pageParamsRo.setPage(1);
+        SceneryListRo pageParamsRo = new SceneryListRo();
+        pageParamsRo.setPage(2);
         pageParamsRo.setSize(10);
-        System.out.println("list=" + sceneryService.findByPage(pageParamsRo));
+        System.out.println("list=" + sceneryService.findByPage(pageParamsRo).getRecords().size());
     }
 
 }

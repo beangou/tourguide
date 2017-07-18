@@ -1,9 +1,11 @@
 package com.tourguide.service;
 
+import com.tourguide.common.Page;
 import com.tourguide.common.ro.PageParamsRo;
 import com.tourguide.common.ro.backend.SceneryAddRo;
 import com.tourguide.common.ro.backend.SceneryDeleteRo;
 import com.tourguide.common.ro.backend.SceneryUpdateRo;
+import com.tourguide.common.ro.scenery.SceneryListRo;
 import com.tourguide.dao.SceneryDao;
 import com.tourguide.entity.Scenery;
 import com.tourguide.utils.StringUtils;
@@ -27,8 +29,14 @@ public class SceneryService {
         return sceneryDao.insert(scenery) == 1;
     }
 
-    public List<Scenery> findByPage(PageParamsRo page) {
-        return sceneryDao.findByPage(page.getPage(), page.getSize());
+    public Page<Scenery> findByPage(SceneryListRo sceneryListRo) {
+        List<Scenery> list = sceneryDao.findByPage(sceneryListRo.getAddressCode(), sceneryListRo.getPage(), sceneryListRo.getSize());
+        int totalCount = sceneryDao.count(null);
+        Page<Scenery> sceneryPage = new Page<>();
+        sceneryPage.setRecords(list);
+        sceneryPage.setPage(sceneryListRo.getPage());
+        sceneryPage.setTotalCount(totalCount);
+        return sceneryPage;
     }
 
     public Scenery findById(String id) {
