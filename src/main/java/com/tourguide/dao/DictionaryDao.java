@@ -20,7 +20,7 @@ public class DictionaryDao {
 
     public List<Dictionary> findByPage(int type, int page, int size) {
         Example example = new Example(Dictionary.class);
-        example.createCriteria().andEqualTo("type", type);
+        example.createCriteria().andEqualTo("type", type).andIsNull("deleted");;
         RowBounds rowBounds = new RowBounds((page-1)*size, size);
         return dictionaryMapper.selectByExampleAndRowBounds(example, rowBounds);
     }

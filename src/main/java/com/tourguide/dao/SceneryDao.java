@@ -5,6 +5,7 @@ import com.tourguide.mapper.SceneryMapper;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 import java.util.List;
@@ -37,9 +38,17 @@ public class SceneryDao {
     }
 
     public List<Scenery> findByPage(int page, int size) {
+        Example example = new Example(Scenery.class);
+        example.createCriteria().andIsNull("deleted");
         // 从第一页开始
         RowBounds rowBounds = new RowBounds((page-1)*size, size);
-        return sceneryMapper.selectByExampleAndRowBounds(null, rowBounds);
+        return sceneryMapper.selectByExampleAndRowBounds(example, rowBounds);
+    }
+
+    public List<Scenery> findByIds(List<String> idList) {
+        Example example = new Example(Scenery.class);
+        example.createCriteria().andIn("id", idList).andIsNull("deleted");;
+        return sceneryMapper.selectByExample(example);
     }
 
     public Scenery findById(String id) {
