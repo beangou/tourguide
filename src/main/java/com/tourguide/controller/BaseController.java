@@ -74,6 +74,7 @@ public class BaseController {
         if (StringUtils.isBlank(userSessionId)) {
             userSessionId = StringUtils.getUUID();
             Cookie cookie = new Cookie(USER_SESSION_ID, userSessionId);
+            cookie.setPath("/"); // this line is important to set cookie.
             response.addCookie(cookie);
         }
         redisService.saveUserSession(userSessionId, object);

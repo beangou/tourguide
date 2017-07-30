@@ -18,7 +18,7 @@ public class UserServiceTest extends BaseTest {
     @Test
     public void create() {
         UserCreateRo ro = new UserCreateRo();
-        ro.setMobile("15922221188");
+        ro.setMobile("15922228888");
         ro.setPassword("888888");
         System.out.println("result=" + userService.create(ro));
     }

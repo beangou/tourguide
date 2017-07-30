@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class Scenery extends BaseEntity {
+public class Scenery extends BaseDbEntity {
 
     @Id
     private String id;
@@ -56,11 +56,5 @@ public class Scenery extends BaseEntity {
      * 景点介绍（富文本）
      */
     private String description;
-
-    private Date created; // 创建时间
-
-    private Date updated; // 更新时间
-
-    private Date deleted; // 删除时间
 
 }

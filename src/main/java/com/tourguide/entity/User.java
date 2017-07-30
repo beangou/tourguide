@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class User extends BaseEntity {
+public class User extends BaseDbEntity {
 
     // @Id注解必须要有，否则更新会失败
     @Id
@@ -17,12 +17,6 @@ public class User extends BaseEntity {
     private String mobile; // 手机号
 
     private String password; // 密码
-
-    private Date created; // 创建时间
-
-    private Date updated; // 更新时间
-
-    private Date deleted; // 删除时间
 
     private String avatar; // 头像
 

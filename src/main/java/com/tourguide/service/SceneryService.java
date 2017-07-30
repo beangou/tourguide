@@ -47,7 +47,6 @@ public class SceneryService {
         Date now = new Date();
         Scenery scenery = new Scenery();
         BeanUtils.copyProperties(sceneryAddRo, scenery);
-        scenery.setId(StringUtils.getUUID());
         scenery.setCreated(now);
         scenery.setUpdated(now);
         return sceneryDao.insert(scenery) == 1;

@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class Dictionary extends BaseEntity {
+public class Dictionary extends BaseDbEntity {
 
     private int id;
 
@@ -23,7 +23,5 @@ public class Dictionary extends BaseEntity {
     private String code;
 
     private String value;
-
-    private Date deleted;
 
 }

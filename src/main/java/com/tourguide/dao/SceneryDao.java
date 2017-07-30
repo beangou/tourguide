@@ -25,6 +25,7 @@ public class SceneryDao {
         if (scenery == null) {
             return 0;
         }
+        scenery.setId(StringUtils.getUUID());
         Date now = new Date();
         scenery.setCreated(now);
         scenery.setUpdated(now);
@@ -41,9 +42,10 @@ public class SceneryDao {
 
     public int count(String userId) {
         Example example = new Example(Scenery.class);
-        example.createCriteria().andIsNull("deleted");
-        if (StringUtils.isNoneBlank(userId)) {
-            example.createCriteria().andEqualTo("userId", userId);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andIsNull("deleted");
+        if (StringUtils.isNotBlank(userId)) {
+            criteria.andEqualTo("userId", userId);
         }
         return sceneryMapper.selectCountByExample(example);
     }
