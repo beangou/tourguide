@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class UserSceneryAddRo extends BaseEntity {
+public class UserSceneryAddRo extends BaseUserParamsRo {
 
     private String sceneryId;
 

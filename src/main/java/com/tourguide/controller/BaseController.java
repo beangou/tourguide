@@ -42,8 +42,7 @@ public class BaseController {
      * 获取当前登录用户id
      * @return
      */
-    protected String getUserId(HttpServletRequest request) {
-        String userSessionId = getUserSessionId(request);
+    protected String getUserId(String userSessionId) {
         if (StringUtils.isBlank(userSessionId)) {
             throw new TourguideException("请重新登录");
         }
@@ -70,14 +69,22 @@ public class BaseController {
      * @param object
      */
     protected void saveUserSession(HttpServletRequest request, HttpServletResponse response, Object object) {
-        String userSessionId = getUserSessionId(request);
-        if (StringUtils.isBlank(userSessionId)) {
-            userSessionId = StringUtils.getUUID();
-            Cookie cookie = new Cookie(USER_SESSION_ID, userSessionId);
-            cookie.setPath("/"); // this line is important to set cookie.
-            response.addCookie(cookie);
+        if (object instanceof UserVo) {
+            // 客户端重新登录,重新生成token
+            UserVo userVo = (UserVo)object;
+            String userSessionId = StringUtils.getUUID();
+            userVo.setToken(userSessionId);
+            redisService.saveUserSession(userSessionId, userVo);
+        } else {
+            String userSessionId = getUserSessionId(request);
+            if (StringUtils.isBlank(userSessionId)) {
+                userSessionId = StringUtils.getUUID();
+                Cookie cookie = new Cookie(USER_SESSION_ID, userSessionId);
+                cookie.setPath("/"); // this line is important to set cookie.
+                response.addCookie(cookie);
+            }
+            redisService.saveUserSession(userSessionId, object);
         }
-        redisService.saveUserSession(userSessionId, object);
     }
 
 }

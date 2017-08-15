@@ -1,5 +1,6 @@
 package com.tourguide.common.ro.note;
 
+import com.tourguide.common.ro.BaseUserParamsRo;
 import com.tourguide.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import javax.websocket.server.ServerEndpoint;
  */
 @Getter
 @Setter
-public class NoteAddForm extends BaseEntity {
+public class NoteAddForm extends BaseUserParamsRo {
 
     /**
      * 笔记类型， 0：casual， 1：excerpt

@@ -38,8 +38,8 @@ public class SceneryController extends BaseController {
     }
 
     @RequestMapping(value = "/user/list", method = RequestMethod.POST)
-    public Result<List<Scenery>> listByUser(HttpServletRequest request, @RequestBody PageParamsRo pageParamsRo) {
-        return Result.success(userSceneryService.list(getUserId(request), pageParamsRo.getPage(), pageParamsRo.getSize()));
+    public Result<List<Scenery>> listByUser(@RequestBody PageParamsRo pageParamsRo) {
+        return Result.success(userSceneryService.list(getUserId(pageParamsRo.getToken()), pageParamsRo.getPage(), pageParamsRo.getSize()));
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
@@ -48,15 +48,15 @@ public class SceneryController extends BaseController {
     }
 
     @RequestMapping(value = "/user/add", method = RequestMethod.POST)
-    public Result<Boolean> add(HttpServletRequest request, @RequestBody UserSceneryAddRo userSceneryAddRo) {
-        String userId = getUserId(request);
+    public Result<Boolean> add(@RequestBody UserSceneryAddRo userSceneryAddRo) {
+        String userId = getUserId(userSceneryAddRo.getToken());
         // 需和用户关联起来
         return Result.success(userSceneryService.save(userId, userSceneryAddRo.getSceneryId()));
     }
 
     @RequestMapping(value = "/user/remove", method = RequestMethod.POST)
-    public Result<Boolean> remove(HttpServletRequest request, @RequestBody UserSceneryAddRo userSceneryAddRo) {
-        String userId = getUserId(request);
+    public Result<Boolean> remove(@RequestBody UserSceneryAddRo userSceneryAddRo) {
+        String userId = getUserId(userSceneryAddRo.getToken());
         // 需和用户关联起来
         return Result.success(userSceneryService.remove(userId, userSceneryAddRo.getSceneryId()));
     }

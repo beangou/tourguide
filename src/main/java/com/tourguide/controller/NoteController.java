@@ -26,8 +26,8 @@ public class NoteController extends BaseController {
     private NoteService noteService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public Result<Boolean> add(@RequestBody NoteAddForm noteAddForm, HttpServletRequest request) {
-        return Result.success(noteService.add(noteAddForm, getUserId(request)));
+    public Result<Boolean> add(@RequestBody NoteAddForm noteAddForm) {
+        return Result.success(noteService.add(noteAddForm, getUserId(noteAddForm.getToken())));
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -36,14 +36,14 @@ public class NoteController extends BaseController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Result<Boolean> update(@RequestBody NoteUpdateForm noteUpdateForm, HttpServletRequest request) {
-        return Result.success(noteService.update(noteUpdateForm, getUserId(request)));
+    public Result<Boolean> update(@RequestBody NoteUpdateForm noteUpdateForm) {
+        return Result.success(noteService.update(noteUpdateForm, getUserId(noteUpdateForm.getToken())));
     }
 
 
     @RequestMapping(value = "/findByPage", method = RequestMethod.GET)
-    public Result<Page<Note>> findByPage(int page, int size, HttpServletRequest request) {
-        return Result.success(noteService.findByPage(getUserId(request), page, size));
+    public Result<Page<Note>> findByPage(int page, int size, String token) {
+        return Result.success(noteService.findByPage(getUserId(token), page, size));
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)

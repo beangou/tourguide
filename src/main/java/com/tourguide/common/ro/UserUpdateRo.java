@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class UserUpdateRo extends BaseEntity {
+public class UserUpdateRo extends BaseUserParamsRo {
 
     private String mobile;
 

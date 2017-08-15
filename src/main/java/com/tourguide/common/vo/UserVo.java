@@ -19,4 +19,6 @@ public class UserVo extends BaseEntity {
 
     private String nickname;
 
+    private String token;
+
 }

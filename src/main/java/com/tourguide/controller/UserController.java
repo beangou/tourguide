@@ -81,14 +81,14 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     @ResponseBody
-    public Result<UserDetailVo> detail(HttpServletRequest request) {
-        return Result.success(userService.detail(getUserId(request)));
+    public Result<UserDetailVo> detail(String token) {
+        return Result.success(userService.detail(getUserId(token)));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Result<Boolean> update(@RequestBody UserUpdateRo userUpdateRo, HttpServletRequest request) {
-        return Result.success(userService.update(userUpdateRo, getUserId(request)));
+    public Result<Boolean> update(@RequestBody UserUpdateRo userUpdateRo) {
+        return Result.success(userService.update(userUpdateRo, getUserId(userUpdateRo.getToken())));
     }
 
     /**

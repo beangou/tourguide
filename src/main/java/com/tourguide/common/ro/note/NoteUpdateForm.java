@@ -1,5 +1,6 @@
 package com.tourguide.common.ro.note;
 
+import com.tourguide.common.ro.BaseUserParamsRo;
 import com.tourguide.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class NoteUpdateForm extends BaseEntity {
+public class NoteUpdateForm extends BaseUserParamsRo {
 
     private String id;
 
