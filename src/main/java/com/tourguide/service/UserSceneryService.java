@@ -8,6 +8,7 @@ import com.tourguide.utils.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,9 @@ public class UserSceneryService {
         List<SceneryVo> result = new ArrayList<>();
         List<UserScenery> userSceneryList = userSceneryDao.findByPage(userId, page, size);
         List<String> sceneryIdList = userSceneryList.stream().map(e -> e.getSceneryId()).collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(sceneryIdList)) {
+            return result;
+        }
         sceneryDao.findByIds(sceneryIdList).forEach(e -> {
             SceneryVo sceneryVo = new SceneryVo();
             BeanUtils.copyProperties(e, sceneryVo);
