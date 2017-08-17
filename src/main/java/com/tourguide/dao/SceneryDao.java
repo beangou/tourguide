@@ -63,7 +63,7 @@ public class SceneryDao {
 
     public List<Scenery> findByIds(List<String> idList) {
         Example example = new Example(Scenery.class);
-        example.createCriteria().andIn("id", idList).andIsNull("deleted");;
+        example.selectProperties("id", "name", "type", "link", "icon", "isInternal", "addressCode", "addressValue", "created", "updated").createCriteria().andIn("id", idList).andIsNull("deleted");;
         return sceneryMapper.selectByExample(example);
     }
 

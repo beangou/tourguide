@@ -1,19 +1,19 @@
 package com.tourguide.service;
 
 import com.tourguide.common.Page;
-import com.tourguide.common.ro.PageParamsRo;
 import com.tourguide.common.ro.backend.SceneryAddRo;
 import com.tourguide.common.ro.backend.SceneryDeleteRo;
 import com.tourguide.common.ro.backend.SceneryUpdateRo;
 import com.tourguide.common.ro.scenery.SceneryListRo;
 import com.tourguide.common.ro.scenery.SceneryPageRo;
+import com.tourguide.common.vo.SceneryVo;
 import com.tourguide.dao.SceneryDao;
 import com.tourguide.entity.Scenery;
-import com.tourguide.utils.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,8 +40,14 @@ public class SceneryService {
         return sceneryPage;
     }
 
-    public List<Scenery> findAll(SceneryListRo sceneryListRo) {
-        return sceneryDao.findAll(sceneryListRo.getAddressCode(), sceneryListRo.getInternal());
+    public List<SceneryVo> findAll(SceneryListRo sceneryListRo) {
+        List<SceneryVo> result = new ArrayList<>();
+        sceneryDao.findAll(sceneryListRo.getAddressCode(), sceneryListRo.getInternal()).forEach(e -> {
+            SceneryVo sceneryVo = new SceneryVo();
+            BeanUtils.copyProperties(e, sceneryVo);
+            result.add(sceneryVo);
+        });
+        return result;
     }
 
     public Scenery findById(String id) {

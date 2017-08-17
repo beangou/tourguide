@@ -1,13 +1,15 @@
 package com.tourguide.service;
 
+import com.tourguide.common.vo.SceneryVo;
 import com.tourguide.dao.SceneryDao;
 import com.tourguide.dao.UserSceneryDao;
-import com.tourguide.entity.Scenery;
 import com.tourguide.entity.UserScenery;
 import com.tourguide.utils.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,10 +33,16 @@ public class UserSceneryService {
         return userSceneryDao.insert(userScenery) == 1;
     }
 
-    public List<Scenery> list(String userId, int page, int size) {
+    public List<SceneryVo> list(String userId, int page, int size) {
+        List<SceneryVo> result = new ArrayList<>();
         List<UserScenery> userSceneryList = userSceneryDao.findByPage(userId, page, size);
         List<String> sceneryIdList = userSceneryList.stream().map(e -> e.getSceneryId()).collect(Collectors.toList());
-        return sceneryDao.findByIds(sceneryIdList);
+        sceneryDao.findByIds(sceneryIdList).forEach(e -> {
+            SceneryVo sceneryVo = new SceneryVo();
+            BeanUtils.copyProperties(e, sceneryVo);
+            result.add(sceneryVo);
+        });
+        return result;
     }
 
     public Boolean remove(String userId, String sceneryId) {
