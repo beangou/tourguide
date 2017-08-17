@@ -7,6 +7,7 @@ import com.tourguide.common.ro.UserSceneryAddRo;
 import com.tourguide.common.ro.backend.SceneryAddRo;
 import com.tourguide.common.ro.backend.SceneryDetailRo;
 import com.tourguide.common.ro.scenery.SceneryListRo;
+import com.tourguide.common.ro.scenery.SceneryPageRo;
 import com.tourguide.entity.Scenery;
 import com.tourguide.service.SceneryService;
 import com.tourguide.service.UserSceneryService;
@@ -32,9 +33,15 @@ public class SceneryController extends BaseController {
     @Autowired
     private UserSceneryService userSceneryService;
 
+    @RequestMapping(value = "/listByPage", method = RequestMethod.POST)
+    public Result<Page<Scenery>> listByPage(@RequestBody SceneryPageRo sceneryPageRo) {
+        return Result.success(sceneryService.findByPage(sceneryPageRo));
+    }
+
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public Result<Page<Scenery>> listAll(@RequestBody SceneryListRo sceneryListRo) {
-        return Result.success(sceneryService.findByPage(sceneryListRo));
+    public Result<List<Scenery>> listAll(@RequestBody SceneryListRo sceneryListRo) {
+        logger.info("sceneryListRo={}", sceneryListRo);
+        return Result.success(sceneryService.findAll(sceneryListRo));
     }
 
     @RequestMapping(value = "/user/list", method = RequestMethod.POST)

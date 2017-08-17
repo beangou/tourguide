@@ -8,6 +8,7 @@ import com.tourguide.common.ro.backend.SceneryDeleteRo;
 import com.tourguide.common.ro.backend.SceneryDetailRo;
 import com.tourguide.common.ro.backend.SceneryUpdateRo;
 import com.tourguide.common.ro.scenery.SceneryListRo;
+import com.tourguide.common.ro.scenery.SceneryPageRo;
 import com.tourguide.controller.BaseController;
 import com.tourguide.entity.Scenery;
 import com.tourguide.service.SceneryService;
@@ -30,8 +31,8 @@ public class SceneryBackendController extends BaseController {
     private SceneryService sceneryService;
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public Result<Page<Scenery>> list(@RequestBody SceneryListRo sceneryListRo) {
-        return Result.success(sceneryService.findByPage(sceneryListRo));
+    public Result<Page<Scenery>> list(@RequestBody SceneryPageRo sceneryPageRo) {
+        return Result.success(sceneryService.findByPage(sceneryPageRo));
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.POST)

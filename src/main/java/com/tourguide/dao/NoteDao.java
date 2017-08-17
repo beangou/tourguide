@@ -47,7 +47,7 @@ public class NoteDao {
     public List<Note> findByPage(String userId, int page, int size) {
         Example example = new Example(Note.class);
         example.createCriteria().andIsNull("deleted").andEqualTo("userId", userId);
-        example.setOrderByClause("created");
+        example.setOrderByClause("updated desc");
         // 从第一页开始
         RowBounds rowBounds = new RowBounds((page-1)*size, size);
         return noteMapper.selectByExampleAndRowBounds(example, rowBounds);

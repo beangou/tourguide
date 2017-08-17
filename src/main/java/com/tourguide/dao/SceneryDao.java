@@ -42,8 +42,7 @@ public class SceneryDao {
 
     public int count(String userId) {
         Example example = new Example(Scenery.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andIsNull("deleted");
+        Example.Criteria criteria = example.createCriteria().andIsNull("deleted");
         if (StringUtils.isNotBlank(userId)) {
             criteria.andEqualTo("userId", userId);
         }
@@ -52,9 +51,9 @@ public class SceneryDao {
 
     public List<Scenery> findByPage(String addressCode, int page, int size) {
         Example example = new Example(Scenery.class);
-        example.createCriteria().andIsNull("deleted");
+        Example.Criteria criteria = example.createCriteria().andIsNull("deleted");
         if (StringUtils.isNotBlank(addressCode)) {
-            example.createCriteria().andEqualTo("addressCode", addressCode);
+            criteria.andEqualTo("addressCode", addressCode);
         }
         example.setOrderByClause("created");
         // 从第一页开始
@@ -70,5 +69,17 @@ public class SceneryDao {
 
     public Scenery findById(String id) {
         return sceneryMapper.selectByPrimaryKey(id);
+    }
+
+    public List<Scenery> findAll(String addressCode, Boolean internal) {
+        Example example = new Example(Scenery.class);
+        Example.Criteria criteria = example.selectProperties("id", "name", "type", "link", "icon", "isInternal", "addressCode", "addressValue", "created", "updated").createCriteria().andIsNull("deleted");
+        if (internal != null) {
+            criteria.andEqualTo("isInternal", internal);
+        }
+        if (StringUtils.isNotBlank(addressCode)) {
+            criteria.andEqualTo("addressCode", addressCode);
+        }
+        return sceneryMapper.selectByExample(example);
     }
 }

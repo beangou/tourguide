@@ -2,7 +2,9 @@ package com.tourguide.service;
 
 import com.tourguide.common.ro.PageParamsRo;
 import com.tourguide.common.ro.scenery.SceneryListRo;
+import com.tourguide.common.ro.scenery.SceneryPageRo;
 import com.tourguide.entity.Scenery;
+import com.tourguide.utils.JsonUtil;
 import com.tourguide.utils.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +34,19 @@ public class SceneryServiceTest extends BaseTest {
 
     @Test
     public void find() {
-        SceneryListRo pageParamsRo = new SceneryListRo();
+        SceneryPageRo pageParamsRo = new SceneryPageRo();
         pageParamsRo.setPage(2);
         pageParamsRo.setSize(10);
         System.out.println("list=" + sceneryService.findByPage(pageParamsRo).getRecords().size());
     }
+
+    @Test
+    public void findAll() {
+        SceneryListRo sceneryListRo = new SceneryListRo();
+        sceneryListRo.setInternal(false);
+        sceneryListRo.setAddressCode("0000900");
+        System.out.println("result=" + JsonUtil.toJsonString(sceneryService.findAll(sceneryListRo)));
+    }
+
 
 }
