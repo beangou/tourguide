@@ -1,6 +1,9 @@
 package com.tourguide;
 
+import com.tourguide.common.ro.MyTestSubRo;
+import com.tourguide.controller.converters.StringToEntityConverter;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -12,10 +15,14 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
 /**
@@ -46,7 +53,20 @@ public class Application extends SpringBootServletInitializer implements Embedde
         container.setPort(8081);
     }
 
-//    @Bean
+    @Bean
+    public StringToEntityConverter myTestSubRoConverter() {
+        return new StringToEntityConverter(MyTestSubRo.class);
+    }
+
+//    @PostConstruct
+//    public void initEditableValidation() {
+//        ConfigurableWebBindingInitializer initializer = (ConfigurableWebBindingInitializer) handlerAdapter.getWebBindingInitializer();
+//        if (initializer.getConversionService() != null) {
+//            GenericConversionService genericConversionService = (GenericConversionService) initializer.getConversionService();
+//            genericConversionService.addConverter(myTestSubRoConverter());
+//        }
+//    }
+    //    @Bean
 //    public CommandLineRunner commandLineRunner(ApplicationContext context) {
 //        return args -> {
 //            System.out.println("Let's inspect the beans provided by Spring Boot:");

@@ -1,11 +1,9 @@
 package com.tourguide.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.tourguide.common.Result;
 import com.tourguide.common.TourguideException;
-import com.tourguide.common.ro.ExistedRo;
-import com.tourguide.common.ro.LoginRo;
-import com.tourguide.common.ro.UserCreateRo;
-import com.tourguide.common.ro.UserUpdateRo;
+import com.tourguide.common.ro.*;
 import com.tourguide.common.vo.UserDetailVo;
 import com.tourguide.common.vo.UserVo;
 import com.tourguide.entity.User;
@@ -27,6 +25,13 @@ public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Boolean> test(@RequestBody MyTestRo myTestRo) {
+        System.out.println("myTestRo=" + myTestRo);
+        return Result.success(true);
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
